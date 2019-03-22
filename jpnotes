@@ -22,17 +22,13 @@ def create_note(args):
     name = dstr + "_" + "_".join(args.name)
     note_folder = os.path.join(NOTE_DIR, args.category)
     os.makedirs(note_folder, exist_ok=True)
-    file_path = os.path.join(note_folder, name)
+    file_path = os.path.join(note_folder, name + '.md')
 
     header = dstr + " " + " ".join(args.name)
 
     with open(file_path, 'w') as fp:
-        fp.write(header)
-        fp.write('\n')
-        fp.write('=' * len(header))
-        fp.write('\n\n')
+        fp.write('#' + header + '\n\n')
     cmd = 'nvim %s' % file_path
-    print(cmd)
     p = subprocess.Popen(cmd.split())
     p.wait()
 
